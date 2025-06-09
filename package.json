@@ -1,5 +1,5 @@
 {
-  "name": "shop-chat-agent",
+  "name": "chatbot",
   "private": true,
   "scripts": {
     "build": "remix vite:build",
