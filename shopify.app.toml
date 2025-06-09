@@ -1,9 +1,8 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
-
-client_id = "YOUR_CLIENT_ID"
-name = "shop-chat-agent"
-handle = "shop-chat-agent"
-application_url = "https://shop-chat-agent.com"
+client_id = "7d90bcdf99c9428d33dfaf60d6180f51"
+name = "chatbot"
+handle = "chatbot-242"
+application_url = "https://chatbot-production-48d8.up.railway.app"
 embedded = true
 
 [build]
@@ -14,15 +13,18 @@ api_version = "2025-04"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "customer_read_customers,customer_read_orders,customer_read_store_credit_account_transactions,customer_read_store_credit_accounts,unauthenticated_read_product_listings"
+scopes = "read_products,write_products,read_orders,write_orders,customer_read_customers,customer_read_orders,customer_read_store_credit_account_transactions,customer_read_store_credit_accounts,unauthenticated_read_product_listings"
 
 [auth]
-redirect_urls = [ "https://shop-chat-agent.com/api/auth" ]
+redirect_urls = [ 
+  "https://chatbot-production-48d8.up.railway.app/auth/callback",
+  "https://chatbot-production-48d8.up.railway.app/api/auth/callback"
+]
 
 [pos]
 embedded = false
 
 [mcp.customer_authentication]
 redirect_uris = [
-  "https://shop-chat-agent.com/callback"
+  "https://chatbot-production-48d8.up.railway.app/callback"
 ]
