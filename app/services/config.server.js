@@ -8,19 +8,19 @@ export const AppConfig = {
   api: {
     defaultModel: 'claude-3-5-sonnet-latest',
     maxTokens: 2000,
-    defaultPromptType: 'standardAssistant',
+    defaultPromptType: 'fournitureExpert',
   },
 
-  // Error Message Templates
-  errorMessages: {
-    missingMessage: "Message is required",
-    apiUnsupported: "This endpoint only supports server-sent events (SSE) requests or history requests.",
-    authFailed: "Authentication failed with Claude API",
-    apiKeyError: "Please check your API key in environment variables",
-    rateLimitExceeded: "Rate limit exceeded",
-    rateLimitDetails: "Please try again later",
-    genericError: "Failed to get response from Claude"
-  },
+ // Error Message Templates
+errorMessages: {
+  missingMessage: "Oeps! Er ging iets mis. Probeer het opnieuw of mail naar info@fournituren.nl.",
+  apiUnsupported: "Oeps! Er ging iets mis. Probeer het opnieuw of mail naar info@fournituren.nl.",
+  authFailed: "Oeps! Er ging iets mis. Probeer het opnieuw of mail naar info@fournituren.nl.",
+  apiKeyError: "Oeps! Er ging iets mis. Probeer het opnieuw of mail naar info@fournituren.nl.",
+  rateLimitExceeded: "Oeps! Er ging iets mis. Probeer het opnieuw of mail naar info@fournituren.nl.",
+  rateLimitDetails: "Oeps! Er ging iets mis. Probeer het opnieuw of mail naar info@fournituren.nl.",
+  genericError: "Oeps! Er ging iets mis. Probeer het opnieuw of mail naar info@fournituren.nl."
+},
 
   // Tool Configuration
   tools: {

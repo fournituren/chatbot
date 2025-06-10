@@ -1,25 +1,21 @@
 {{ 'chat.css' | asset_url | stylesheet_tag }}
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
 <div class="shop-ai-chat-container">
   <div class="shop-ai-chat-bubble" style="background-color: {{ block.settings.chat_bubble_color }}">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
     </svg>
   </div>
-
   <div class="shop-ai-chat-window">
     <div class="shop-ai-chat-header">
-      <div>{{ 'chat.title' | t }}</div>
+      <div>AI Chatbot</div>
       <button class="shop-ai-chat-close">✕</button>
     </div>
-
     <div class="shop-ai-chat-messages">
       <!-- Messages will be added here by JavaScript -->
     </div>
-
     <div class="shop-ai-chat-input">
-      <input type="text" placeholder="{{ 'chat.inputPlaceholder' | t }}">
+      <input type="text" placeholder="Type je vraag hier...">
       <button class="shop-ai-chat-send">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -29,7 +25,6 @@
     </div>
   </div>
 </div>
-
 <script src="{{ 'chat.js' | asset_url }}" defer></script>
 <script>
   window.shopChatConfig = {
@@ -38,39 +33,42 @@
   };
   window.shopId = {{ shop.id }};
 </script>
-
 {% schema %}
 {
-  "name": "AI Chat Assistant",
+  "name": "AI Chatbot",
   "target": "body",
   "settings": [
     {
       "type": "color",
       "id": "chat_bubble_color",
-      "label": "Chat Bubble Color",
+      "label": "Chat Bubble Kleur",
       "default": "#5046e4"
     },
     {
       "type": "text",
       "id": "welcome_message",
-      "label": "Welcome Message",
-      "default": "👋 Hi there! How can I help you today?"
+      "label": "Welkom Bericht",
+      "default": "👋 Hoi! Ik ben de AI Chatbot van Fournituren.nl en help je graag!"
     },
     {
       "type": "select",
       "id": "system_prompt",
-      "label": "System Prompt",
+      "label": "Chatbot Type",
       "options": [
         {
           "value": "standardAssistant",
-          "label": "Standard Assistant"
+          "label": "Standaard Assistent"
         },
         {
           "value": "enthusiasticAssistant",
-          "label": "Enthusiastic Assistant"
+          "label": "Enthousiaste Assistent"
+        },
+        {
+          "value": "fournitureExpert",
+          "label": "Fournituren Expert"
         }
       ],
-      "default": "standardAssistant"
+      "default": "fournitureExpert"
     }
   ]
 }

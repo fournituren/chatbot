@@ -199,7 +199,7 @@
         // Add a header for the product results
         const header = document.createElement('div');
         header.classList.add('shop-ai-product-header');
-        header.innerHTML = '<h4>Top Matching Products</h4>';
+        header.innerHTML = '<h4>Beste Producten Voor Jou</h4>';
         productSection.appendChild(header);
 
         // Create the product grid container
@@ -209,7 +209,7 @@
 
         if (!products || !Array.isArray(products) || products.length === 0) {
           const noProductsMessage = document.createElement('p');
-          noProductsMessage.textContent = "No products found";
+          noProductsMessage.textContent = "Geen producten gevonden";
           noProductsMessage.style.padding = "10px";
           productsContainer.appendChild(noProductsMessage);
         } else {
@@ -250,7 +250,7 @@
         } catch (error) {
           console.error('Error communicating with Claude API:', error);
           ShopAIChat.UI.removeTypingIndicator();
-          this.add("Sorry, I couldn't process your request at the moment. Please try again later.", 'assistant', messagesContainer);
+          this.add("Oeps! Er ging iets mis. Probeer het opnieuw of mail naar info@fournituren.nl.", 'assistant', messagesContainer);
         }
       },
 
@@ -309,7 +309,27 @@
 
         const toolText = document.createElement('span');
         toolText.classList.add('shop-ai-tool-text');
-        toolText.textContent = `Calling tool: ${toolName}`;
+        
+        // Nederlandse tool namen
+        let displayToolName = toolName;
+        switch(toolName) {
+          case 'search_shop_catalog':
+            displayToolName = 'Producten zoeken';
+            break;
+          case 'search_shop_policies_and_faqs':
+            displayToolName = 'Beleid opzoeken';
+            break;
+          case 'get_cart':
+            displayToolName = 'Winkelwagen bekijken';
+            break;
+          case 'update_cart':
+            displayToolName = 'Winkelwagen bijwerken';
+            break;
+          default:
+            displayToolName = toolName;
+        }
+        
+        toolText.textContent = `${displayToolName}...`;
 
         const toggleElement = document.createElement('span');
         toggleElement.classList.add('shop-ai-tool-toggle');
@@ -381,7 +401,7 @@
           }
           // If it's a checkout link, replace the text
           else if (url.includes('/cart') || url.includes('checkout')) {
-            return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">click here to proceed to checkout</a>';
+            return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">klik hier om af te rekenen</a>';
           } else {
             // For normal links, preserve the original text
             return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + text + '</a>';
@@ -530,7 +550,7 @@
         } catch (error) {
           console.error('Error in streaming:', error);
           ShopAIChat.UI.removeTypingIndicator();
-          ShopAIChat.Message.add("Sorry, I couldn't process your request. Please try again later.",
+          ShopAIChat.Message.add("Oeps! Er ging iets mis. Probeer het opnieuw of mail naar info@fournituren.nl.",
             'assistant', messagesContainer);
         }
       },
@@ -571,13 +591,13 @@
           case 'error':
             console.error('Stream error:', data.error);
             ShopAIChat.UI.removeTypingIndicator();
-            currentMessageElement.textContent = "Sorry, I couldn't process your request. Please try again later.";
+            currentMessageElement.textContent = "Oeps! Er ging iets mis. Probeer het opnieuw of mail naar info@fournituren.nl.";
             break;
 
           case 'rate_limit_exceeded':
             console.error('Rate limit exceeded:', data.error);
             ShopAIChat.UI.removeTypingIndicator();
-            currentMessageElement.textContent = "Sorry, our servers are currently busy. Please try again later.";
+            currentMessageElement.textContent = "Even geduld! We zijn erg druk. Probeer het over een minuutje opnieuw.";
             break;
 
           case 'auth_required':
@@ -626,7 +646,7 @@
           // Show a loading message
           const loadingMessage = document.createElement('div');
           loadingMessage.classList.add('shop-ai-message', 'assistant');
-          loadingMessage.textContent = "Loading conversation history...";
+          loadingMessage.textContent = "Gesprek wordt geladen...";
           messagesContainer.appendChild(loadingMessage);
 
           // Fetch history from the server
@@ -654,7 +674,7 @@
 
           // No messages, show welcome message
           if (!data.messages || data.messages.length === 0) {
-            const welcomeMessage = window.shopChatConfig?.welcomeMessage || "👋 Hi there! How can I help you today?";
+            const welcomeMessage = window.shopChatConfig?.welcomeMessage || "👋 Hallo! Waarmee kan ik je helpen?";
             ShopAIChat.Message.add(welcomeMessage, 'assistant', messagesContainer);
             return;
           }
@@ -681,12 +701,12 @@
 
           // Remove loading message if it exists
           const loadingMessage = messagesContainer.querySelector('.shop-ai-message.assistant');
-          if (loadingMessage && loadingMessage.textContent === "Loading conversation history...") {
+          if (loadingMessage && loadingMessage.textContent === "Gesprek wordt geladen...") {
             messagesContainer.removeChild(loadingMessage);
           }
 
           // Show error and welcome message
-          const welcomeMessage = window.shopChatConfig?.welcomeMessage || "👋 Hi there! How can I help you today?";
+          const welcomeMessage = window.shopChatConfig?.welcomeMessage || "👋 Hallo! Waarmee kan ik je helpen?";
           ShopAIChat.Message.add(welcomeMessage, 'assistant', messagesContainer);
 
           // Clear the conversation ID since we couldn't fetch this conversation
@@ -734,7 +754,7 @@
           popup.focus();
         } else {
           // If popup was blocked, show a message
-          alert('Please allow popups for this site to authenticate with Shopify.');
+          alert('Sta popups toe voor deze site om in te loggen bij Shopify.');
         }
 
         // Start polling for token availability
@@ -743,7 +763,7 @@
           const messagesContainer = document.querySelector('.shop-ai-chat-messages');
 
           // Add a message to indicate authentication is in progress
-          ShopAIChat.Message.add("Authentication in progress. Please complete the process in the popup window.",
+          ShopAIChat.Message.add("Inloggen bezig. Voltooi het proces in het popup venster.",
             'assistant', messagesContainer);
 
           this.startTokenPolling(conversationId, messagesContainer);
@@ -796,7 +816,7 @@
               if (message) {
                 sessionStorage.removeItem('shopAiLastMessage');
                 setTimeout(() => {
-                  ShopAIChat.Message.add("Authorization successful! I'm now continuing with your request.",
+                  ShopAIChat.Message.add("Inloggen gelukt! Ik ga verder met je vraag.",
                     'assistant', messagesContainer);
                   ShopAIChat.API.streamResponse(message, conversationId, messagesContainer);
                   ShopAIChat.UI.showTypingIndicator();
@@ -877,7 +897,7 @@
         // Add add-to-cart button
         const button = document.createElement('button');
         button.classList.add('shop-ai-add-to-cart');
-        button.textContent = 'Add to Cart';
+        button.textContent = 'Toevoegen aan Winkelwagen';
         button.dataset.productId = product.id;
 
         // Add click handler for the button
@@ -885,7 +905,7 @@
           // Send message to add this product to cart
           const input = document.querySelector('.shop-ai-chat-input input');
           if (input) {
-            input.value = `Add ${product.title} to my cart`;
+            input.value = `Voeg ${product.title} toe aan mijn winkelwagen`;
             // Trigger a click on the send button
             const sendButton = document.querySelector('.shop-ai-chat-send');
             if (sendButton) {
@@ -919,7 +939,7 @@
         this.API.fetchChatHistory(conversationId, this.UI.elements.messagesContainer);
       } else {
         // No previous conversation, show welcome message
-        const welcomeMessage = window.shopChatConfig?.welcomeMessage || "👋 Hi there! How can I help you today?";
+        const welcomeMessage = window.shopChatConfig?.welcomeMessage || "👋 Hallo! Waarmee kan ik je helpen?";
         this.Message.add(welcomeMessage, 'assistant', this.UI.elements.messagesContainer);
       }
     }
