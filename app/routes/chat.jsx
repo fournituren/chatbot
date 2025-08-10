@@ -369,8 +369,3 @@ function getSseHeaders(request) {
   };
 }
 
-// Na 4 berichten automatisch nieuwe conversation ID genereren
-if (messageCount >= 4) {
-  conversationId = generateNewConversationId();
-  // Reset context, maar behoud laatste bericht voor continuïteit
-}
