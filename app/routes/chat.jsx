@@ -368,3 +368,9 @@ function getSseHeaders(request) {
     "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
   };
 }
+
+// Na 4 berichten automatisch nieuwe conversation ID genereren
+if (messageCount >= 4) {
+  conversationId = generateNewConversationId();
+  // Reset context, maar behoud laatste bericht voor continuïteit
+}
