@@ -8,7 +8,7 @@ export const AppConfig = {
     defaultModel: 'claude-3-5-haiku-20241022',
     maxTokens: 2000,
     defaultPromptType: 'fournitureExpertNL_V6.7',
-    maxConversationTurns: 2  // Houdt alleen laatste 5 berichten
+    maxConversationTurns: 4  // Houdt alleen laatste 5 berichten
   },
   // Error Message Templates
   errorMessages: {
