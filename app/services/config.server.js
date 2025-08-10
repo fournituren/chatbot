@@ -8,7 +8,7 @@ export const AppConfig = {
     defaultModel: 'claude-3-5-sonnet-20241022',
     maxTokens: 2000,
     defaultPromptType: 'fournitureExpertNL_V6',
-    maxConversationTurns: 5  // Houdt alleen laatste 5 berichten
+    maxConversationTurns: 3  // Houdt alleen laatste 5 berichten
   },
   // Error Message Templates
   errorMessages: {
